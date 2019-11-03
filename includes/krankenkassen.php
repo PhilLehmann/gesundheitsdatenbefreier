@@ -2,31 +2,42 @@
 
 defined('ABSPATH') or die('');
 
-class Krankenkassenliste {
+class gesundheitsdatenbefreier_Krankenkassenliste {
 	private $data = [];
 	
 	function add($name, $plz, $ort, $strasse, $email) {
-		array_push($this->data, new Krankenkasse($name, $plz, $ort, $strasse, $email));
+		array_push($this->data, new gesundheitsdatenbefreier_Krankenkasse($name, $plz, $ort, $strasse, $email));
 	}
 	
 	function get($requestData) {
+		if(!isset($requestData['gp_kasse'])) {
+			wp_die('Parameter "gp_kasse" fehlt.');
+		}
+		
 		$name = $requestData['gp_kasse'];
 		foreach($this->data as $krankenkasse) {
 			if($krankenkasse->name == $name) {
 				return $krankenkasse;
 			}
 		}
-		return new Krankenkasse($requestData['gp_kk_name'], $requestData['gp_kk_plz'], $requestData['gp_kk_ort'], $requestData['gp_kk_strasse'], $requestData['gp_kk_mail']);
+		
+		if(!isset($requestData['gp_kk_name'])) {
+			wp_die('Parameter "gp_kk_name" fehlt.');
+		}
+		if(!isset($requestData['gp_kk_mail']) && (!isset($requestData['gp_kk_plz']) || !isset($requestData['gp_kk_ort']) || !isset($requestData['gp_kk_strasse']))) {
+			wp_die('Parameter "gp_kk_mail" und eine komplette Addresse (Parameter "gp_kk_plz", "gp_kk_ort" und "gp_kk_strasse") fehlen.');
+		}
+		return new gesundheitsdatenbefreier_Krankenkasse($requestData['gp_kk_name'], $requestData['gp_kk_plz'], $requestData['gp_kk_ort'], $requestData['gp_kk_strasse'], $requestData['gp_kk_mail']);
 	}
 	
 	function printOptions() {
 		foreach($this->data as $krankenkasse) {
-			echo '<option value="' . $krankenkasse->name . '">' . $krankenkasse->name . '</option>';
+			echo '<option value="' . esc_attr($krankenkasse->name) . '">' . esc_html($krankenkasse->name) . '</option>';
 		}
 	}
 }
 
-class Krankenkasse {
+class gesundheitsdatenbefreier_Krankenkasse {
     public $name;
     public $plz;
     public $ort;
@@ -50,7 +61,7 @@ class Krankenkasse {
 	}
 }
 
-$gesundheitsdatenbefreier_krankenkassen = new Krankenkassenliste();
+$gesundheitsdatenbefreier_krankenkassen = new gesundheitsdatenbefreier_Krankenkassenliste();
 
 $gesundheitsdatenbefreier_krankenkassen->add('BARMER', '10969', 'Berlin', 'Axel-Springer-Straße 44', 'service@barmer.de');
 $gesundheitsdatenbefreier_krankenkassen->add('DAK Gesundheit', '20097', 'Hamburg', 'Nagelsweg 27-31', 'service@dak.de');

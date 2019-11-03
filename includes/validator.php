@@ -2,7 +2,7 @@
 
 defined('ABSPATH') or die('');
 
-class Validator {
+class gesundheitsdatenbefreier_Validator {
 	
 	private static $errors = null;
 	
@@ -27,7 +27,7 @@ class Validator {
 	);
 	
 	private static $otherKKMailValidation = array(
-		'gp_kk_mail' => array('email')
+		'gp_kk_mail' => array('not_empty', 'email')
 	);
 	
 	private static $otherKKAddressValidation = array(
@@ -85,7 +85,12 @@ class Validator {
 		foreach($validations as $field => $checks) {
 			foreach($checks as $check) {
 				$checkFunction = 'is_' . $check;
-				if(!self::$checkFunction($data[$field])) {
+				if(isset($data[$field])) {
+					if(!self::$checkFunction($data[$field])) {
+						$errors[$field] = self::$messages[$check];
+						break;
+					}
+				} elseif($check == 'not_empty') {
 					$errors[$field] = self::$messages[$check];
 					break;
 				}

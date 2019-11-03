@@ -15,27 +15,47 @@ Stable tag: trunk
 
 defined('ABSPATH') or die('');
 
-function get_mail_text($params) {
+function gesundheitsdatenbefreier_get_mail_text($params) {
+	if(!isset($params['gp_name']) || !isset($params['gp_strasse']) || !isset($params['gp_plz']) || !isset($params['gp_ort']) || !isset($params['gp_kasse']) || !isset($params['gp_nummer'])) {
+		wp_die('Einer der Parameter "gp_name", "gp_strasse", "gp_plz", "gp_ort", "gp_kasse", "gp_nummer" fehlt.');
+	}
+	if($params['gp_kasse'] == 'other' && !isset($params['gp_kk_name'])) {
+		wp_die('Der Parameter "gp_kk_name" fehlt.');
+	}
 	$from = array('{{name}}', '{{strasse}}', '{{plz}}', '{{ort}}', '{{kasse}}', '{{versichertennummer}}');
-	$to = array(htmlentities($params['gp_name']), htmlentities($params['gp_strasse']), htmlentities($params['gp_plz']), htmlentities($params['gp_ort']), htmlentities($params['gp_kasse'] !== 'other' ? $params['gp_kasse'] : $params['gp_kk_name']), htmlentities($params['gp_nummer']));
+	$to = array(esc_html($params['gp_name']), esc_html($params['gp_strasse']), esc_html($params['gp_plz']), esc_html($params['gp_ort']), esc_html($params['gp_kasse'] !== 'other' ? $params['gp_kasse'] : $params['gp_kk_name']), esc_html($params['gp_nummer']));
 	return str_replace($from, $to, get_option('gesundheitsdatenbefreier_mail_text'));
 }
 
-function gesundheitsdatenbefreier_formular() {
-	$page = 'infos';	
-	if(isset($_GET['gp'])) {
-		$page = $_GET['gp'];
-	}
-
+function gesundheitsdatenbefreier_router() {
+	$page = 'infos';
 	$pages = array('infos', 'form', 'result', 'good-bye');
-	if (in_array($page, $pages)) {
-		require_once __DIR__ . '/pages/' . $page . '.php';
-	} else {
-		return 'Seite nicht gefunden.';
+	if(isset($_GET['gp'])) {
+		if(in_array($_GET['gp'], $pages)) {
+			$page = $_GET['gp'];			
+		} else {
+			wp_die('Seite nicht gefunden.');
+		}
+	}
+	
+	require_once __DIR__ . '/pages/' . $page . '.php';
+}
+
+add_shortcode('gesundheitsdatenbefreier', 'gesundheitsdatenbefreier_router');
+
+function gesundheitsdatenbefreier_router_enqueue_scripts() {
+	
+	wp_enqueue_script('select2-script', plugin_dir_url(__FILE__) . 'assets/select2.min.js', array('jquery'));
+	wp_enqueue_style('select2-style', plugin_dir_url(__FILE__) . 'assets/select2.min.css');
+	wp_enqueue_script('gesundheitsdatenbefreier-script', plugin_dir_url(__FILE__) . 'assets/scripts.js', array('jquery'));	
+	wp_enqueue_style('gesundheitsdatenbefreier-style', plugin_dir_url(__FILE__) . 'assets/style.css');
+	
+	if(isset($_GET['gp_kasse'])) {
+		wp_add_inline_script('gesundheitsdatenbefreier-script', 'jQuery(document).ready(function($){ $(\'.select2.krankenkasse\').val(\'' . esc_js($_GET['gp_kasse']) . '\').trigger(\'change\'); if(\'' . esc_js($_GET['gp_kasse']) . '\' == \'other\') { $(\'.other.fields\').slideDown("slow"); } });');
 	}
 }
 
-add_shortcode('gesundheitsdatenbefreier', 'gesundheitsdatenbefreier_formular');
+add_action('wp_enqueue_scripts', 'gesundheitsdatenbefreier_router_enqueue_scripts');
 
 function gesundheitsdatenbefreier_api() {
 	require_once __DIR__ . '/includes/pdf.php';

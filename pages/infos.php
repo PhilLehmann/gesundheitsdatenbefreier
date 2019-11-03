@@ -17,12 +17,4 @@ if($counter >= $threshold) {
 
 ?>
 
-<input class="button" type="button" value="Frage deine Daten ab!" />
-
-<script type="text/javascript">
-jQuery(document).ready(function() {
-	jQuery('.button').click(function() {
-		window.location = "?gp=form";
-	});
-});
-</script>
+<input class="form button" type="button" value="Frage deine Daten ab!" />
