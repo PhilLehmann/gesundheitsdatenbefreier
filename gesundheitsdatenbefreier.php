@@ -3,29 +3,19 @@
 == gesundheitsdatenbefreier ==
 Plugin Name: gesundheitsdatenbefreier
 Description: Ein WordPress-Plugin, mit dem Versicherte ihre Daten dank DSGVO befreien können
-Version: 1.0
+Version: 1.2
 Author: Phil Lehmann, AK Vorratsdatenspeicherung
 Author URI: http://www.vorratsdatenspeicherung.de/
 Contributors: philrykoff
 Tested up to: 5.2.4
 Requires at least: 5.2.4
-Requires PHP: 7.2.19
+Requires PHP: 7.1
 Stable tag: trunk
 */
 
 defined('ABSPATH') or die('');
 
-function gesundheitsdatenbefreier_get_mail_text($params) {
-	if(!isset($params['gp_name']) || !isset($params['gp_strasse']) || !isset($params['gp_plz']) || !isset($params['gp_ort']) || !isset($params['gp_kasse']) || !isset($params['gp_nummer'])) {
-		wp_die('Einer der Parameter "gp_name", "gp_strasse", "gp_plz", "gp_ort", "gp_kasse", "gp_nummer" fehlt.');
-	}
-	if($params['gp_kasse'] == 'other' && !isset($params['gp_kk_name'])) {
-		wp_die('Der Parameter "gp_kk_name" fehlt.');
-	}
-	$from = array('{{name}}', '{{strasse}}', '{{plz}}', '{{ort}}', '{{kasse}}', '{{versichertennummer}}');
-	$to = array(esc_html($params['gp_name']), esc_html($params['gp_strasse']), esc_html($params['gp_plz']), esc_html($params['gp_ort']), esc_html($params['gp_kasse'] !== 'other' ? $params['gp_kasse'] : $params['gp_kk_name']), esc_html($params['gp_nummer']));
-	return str_replace($from, $to, get_option('gesundheitsdatenbefreier_mail_text'));
-}
+// Main entry point (shortcode)
 
 function gesundheitsdatenbefreier_router() {
 	$page = 'infos';
@@ -43,8 +33,25 @@ function gesundheitsdatenbefreier_router() {
 
 add_shortcode('gesundheitsdatenbefreier', 'gesundheitsdatenbefreier_router');
 
+// Functions to include
+
+function gesundheitsdatenbefreier_get_mail_text($params) {
+	if(!isset($params['gp_name']) || !isset($params['gp_strasse']) || !isset($params['gp_plz']) || !isset($params['gp_ort']) || !isset($params['gp_kasse']) || !isset($params['gp_nummer'])) {
+		wp_die('Einer der Parameter "gp_name", "gp_strasse", "gp_plz", "gp_ort", "gp_kasse", "gp_nummer" fehlt.');
+	}
+	if($params['gp_kasse'] == 'other' && !isset($params['gp_kk_name'])) {
+		wp_die('Der Parameter "gp_kk_name" fehlt.');
+	}
+	$from = array('{{name}}', '{{strasse}}', '{{plz}}', '{{ort}}', '{{kasse}}', '{{versichertennummer}}');
+	$to = array(esc_html($params['gp_name']), esc_html($params['gp_strasse']), esc_html($params['gp_plz']), esc_html($params['gp_ort']), esc_html($params['gp_kasse'] !== 'other' ? $params['gp_kasse'] : $params['gp_kk_name']), esc_html($params['gp_nummer']));
+	return str_replace($from, $to, get_option('gesundheitsdatenbefreier_mail_text'));
+}
+
+// Include CSS and script files
+
 function gesundheitsdatenbefreier_router_enqueue_scripts() {
 	
+	wp_enqueue_script('jquery');
 	wp_enqueue_script('select2-script', plugin_dir_url(__FILE__) . 'assets/select2.min.js', array('jquery'));
 	wp_enqueue_style('select2-style', plugin_dir_url(__FILE__) . 'assets/select2.min.css');
 	wp_enqueue_script('gesundheitsdatenbefreier-script', plugin_dir_url(__FILE__) . 'assets/scripts.js', array('jquery'));	
@@ -57,6 +64,8 @@ function gesundheitsdatenbefreier_router_enqueue_scripts() {
 
 add_action('wp_enqueue_scripts', 'gesundheitsdatenbefreier_router_enqueue_scripts');
 
+// Provide PDF as API, so that WordPress theme is not sent and corrupting the PDF
+
 function gesundheitsdatenbefreier_api() {
 	require_once __DIR__ . '/includes/pdf.php';
 	register_rest_route('gesundheitsdatenbefreier', 'pdf', array( 
@@ -67,6 +76,8 @@ function gesundheitsdatenbefreier_api() {
 
 add_action('rest_api_init','gesundheitsdatenbefreier_api');
 
+// Start the session so we can remember users that already made a data information request
+
 function gesundheitsdatenbefreier_init() {
 	if(!session_id()) {
 		session_start();
@@ -74,10 +85,7 @@ function gesundheitsdatenbefreier_init() {
 }
 add_action('init', 'gesundheitsdatenbefreier_init');
 
-function gesundheitsdatenbefreier_scripts() {
-	wp_enqueue_script('jquery');
-}
-add_action('wp_enqueue_scripts', 'gesundheitsdatenbefreier_scripts');
+// Admin section
 
 function gesundheitsdatenbefreier_settings() {
     register_setting('gesundheitsdatenbefreier_options_section', 'gesundheitsdatenbefreier_threshold', array(

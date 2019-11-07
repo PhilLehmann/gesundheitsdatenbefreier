@@ -22,20 +22,24 @@ class gesundheitsdatenbefreier_Validator {
 		'gp_nummer' => array('not_empty', 'versichertennummer')
 	);
 	
+	// Used when "other" health insurance is picked
 	private static $otherKKValidation = array(
 		'gp_kk_name' => array('not_empty')
 	);
 	
+	// If "other" health insurance is picked, the user can either provide mail...
 	private static $otherKKMailValidation = array(
 		'gp_kk_mail' => array('not_empty', 'email')
 	);
 	
+	// ... or snail mail contact information
 	private static $otherKKAddressValidation = array(
 		'gp_kk_strasse' => array('not_empty'),
 		'gp_kk_plz' => array('not_empty', 'plz'),
 		'gp_kk_ort' => array('not_empty')
 	);
 	
+	// validation functions
 	private static function is_not_empty($value) {
 		$trimmedText = trim($value);
 		return !empty($trimmedText);
@@ -81,6 +85,7 @@ class gesundheitsdatenbefreier_Validator {
 		return $checksum == substr($number, 10);
 	}
 	
+	// Validate data against a specific set of rules
 	private static function validateRules($data, $validations, $errors = []) {
 		foreach($validations as $field => $checks) {
 			foreach($checks as $check) {
@@ -99,6 +104,7 @@ class gesundheitsdatenbefreier_Validator {
 		return $errors;
 	}
 	
+	// Validate complete set of data
 	public static function validate($data) {
 		if(self::$errors !== null) {
 			return self::$errors;
