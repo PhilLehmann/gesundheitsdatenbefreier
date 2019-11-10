@@ -88,6 +88,10 @@ class gesundheitsdatenbefreier_Validator {
 	// Validate data against a specific set of rules
 	private static function validateRules($data, $validations, $errors = []) {
 		foreach($validations as $field => $checks) {
+			// trim all parameters
+			if(isset($data[$field]) && $data[$field] != trim($data[$field])) {
+				$data[$field] = trim($data[$field]);
+			}			
 			foreach($checks as $check) {
 				$checkFunction = 'is_' . $check;
 				if(isset($data[$field])) {
