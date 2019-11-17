@@ -42,6 +42,7 @@ position: relative;
 
 
 .mail-to,
+.mail-subject,
 .mail-text {
 	display: none;
 }

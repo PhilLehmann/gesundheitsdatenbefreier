@@ -3,7 +3,7 @@
 == gesundheitsdatenbefreier ==
 Plugin Name: gesundheitsdatenbefreier
 Description: Ein WordPress-Plugin, mit dem Versicherte ihre Daten dank DSGVO befreien können
-Version: 1.3
+Version: 1.4
 Author: Phil Lehmann, AK Vorratsdatenspeicherung
 Author URI: http://www.vorratsdatenspeicherung.de/
 Contributors: philrykoff
@@ -99,6 +99,16 @@ function gesundheitsdatenbefreier_settings() {
 		'description' => 'Der Text, der auf der Info-Seite dargestellt werden soll.',
 		'default' => 'Lorem Ipsum.',
 	));
+    register_setting('gesundheitsdatenbefreier_options_section', 'gesundheitsdatenbefreier_mail_subject', array(
+		'type' => 'string',
+		'description' => 'Der Betreff des Textes, der auf der Ergebnis-Seite, in der PDF und der Mail verwendet werden soll.',
+		'default' => 'Lorem Ipsum.',
+	));
+    register_setting('gesundheitsdatenbefreier_options_section', 'gesundheitsdatenbefreier_mail_text', array(
+		'type' => 'string',
+		'description' => 'Der Text, der auf der Ergebnis-Seite, in der PDF und der Mail verwendet werden soll.',
+		'default' => 'Lorem Ipsum.',
+	));
     register_setting('gesundheitsdatenbefreier_options_section', 'gesundheitsdatenbefreier_mail_text', array(
 		'type' => 'string',
 		'description' => 'Der Text, der auf der Ergebnis-Seite, in der PDF und der Mail verwendet werden soll.',
@@ -114,6 +124,7 @@ function gesundheitsdatenbefreier_settings() {
 	add_settings_field('gesundheitsdatenbefreier_counter', 'Stand des Abfragen-Zählers', 'gesundheitsdatenbefreier_counter_render', 'gesundheitsdatenbefreier_options', 'gesundheitsdatenbefreier_options_section');
 	add_settings_field('gesundheitsdatenbefreier_threshold', 'Schwellwert für die Anzeige des Abfragen-Zählers', 'gesundheitsdatenbefreier_threshold_render', 'gesundheitsdatenbefreier_options', 'gesundheitsdatenbefreier_options_section');
 	add_settings_field('gesundheitsdatenbefreier_info_text', 'Text der Info-Seite', 'gesundheitsdatenbefreier_info_text_render', 'gesundheitsdatenbefreier_options', 'gesundheitsdatenbefreier_options_section');
+	add_settings_field('gesundheitsdatenbefreier_mail_subject', 'Betreff der versendeten Nachricht', 'gesundheitsdatenbefreier_mail_subject_render', 'gesundheitsdatenbefreier_options', 'gesundheitsdatenbefreier_options_section');
 	add_settings_field('gesundheitsdatenbefreier_mail_text', 'Text der versendeten Nachricht', 'gesundheitsdatenbefreier_mail_text_render', 'gesundheitsdatenbefreier_options', 'gesundheitsdatenbefreier_options_section');
 	add_settings_field('gesundheitsdatenbefreier_good_bye_text', 'Text der letzten Seite', 'gesundheitsdatenbefreier_good_bye_text_render', 'gesundheitsdatenbefreier_options', 'gesundheitsdatenbefreier_options_section');
 } 
@@ -151,6 +162,10 @@ function gesundheitsdatenbefreier_info_text_render() {
         'textarea_name' => 'gesundheitsdatenbefreier_info_text',
         'media_buttons' => false,
     ));
+}
+
+function gesundheitsdatenbefreier_mail_subject_render() {
+	echo '<input name="gesundheitsdatenbefreier_mail_subject" id="gesundheitsdatenbefreier_mail_subject" type="text" value="' . get_option('gesundheitsdatenbefreier_mail_subject', 'Datenschutzauskunft') . '"  />';
 }
 
 function gesundheitsdatenbefreier_mail_text_render() {

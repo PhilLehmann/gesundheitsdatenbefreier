@@ -29,6 +29,7 @@ function gesundheitsdatenbefreier_pdf() {
     $gp_strasse = esc_html($_POST['gp_strasse']);
     $gp_plz = esc_html($_POST['gp_plz']);
     $gp_ort = esc_html($_POST['gp_ort']);
+	$subject = esc_html(get_option('gesundheitsdatenbefreier_mail_subject', 'Datenschutzauskunft'));
 
     $html = <<<TXT
 	<br/>
@@ -45,6 +46,9 @@ function gesundheitsdatenbefreier_pdf() {
 	<br/>
 	<br/>
 	<br/>
+	<br/>
+	<br/>
+	<b>{$subject}</b>
 	<br/>
 	<br/>
 TXT;

@@ -24,7 +24,14 @@ if($showResult) {
 ?>
 <div class="gesundheitsdatenbefreier result">
 	<p>
-		<b>An: <?php echo esc_html($krankenkasse->name); ?></b>
+		<b>{$krankenkasse->name}</b><br/>
+		{$krankenkasse->strasse}<br/>
+		{$krankenkasse->plz} {$krankenkasse->ort}<br/>
+		<i>{$krankenkasse->email}</i>
+	</p>
+	
+	<p>
+		<b><?php echo esc_html(get_option('gesundheitsdatenbefreier_mail_subject', 'Datenschutzauskunft')); ?></b>
 	</p>
 
 	<?php
@@ -36,6 +43,9 @@ if($showResult) {
 
 	<div class="mail-to">
 		<?php echo esc_html($krankenkasse->email); ?>
+	</div>
+	<div class="mail-subject">
+		<?php echo esc_html(get_option('gesundheitsdatenbefreier_mail_subject', 'Datenschutzauskunft')); ?>
 	</div>
 	<div class="mail-text">
 		<?php echo $mailText; ?>
