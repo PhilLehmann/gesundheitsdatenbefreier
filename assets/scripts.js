@@ -25,6 +25,6 @@ jQuery(document).ready(function($) {
 	
 	// result
     $('.submit-mail').click(function() {
-        window.open("mailto:" + $('.mail-to').text() + "?subject=" + encodeURIComponent($('.mail-subject').text()) + "&body=" + encodeURIComponent($('.mail-text').text()));
+        window.open("mailto:" + $('.mail-to').text() + "?subject=" + encodeURIComponent($('.mail-subject').text().trim()) + "&body=" + encodeURIComponent($('.mail-text').text().trim()));
 	});
 });
