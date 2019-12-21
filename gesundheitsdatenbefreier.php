@@ -3,7 +3,7 @@
 == gesundheitsdatenbefreier ==
 Plugin Name: gesundheitsdatenbefreier
 Description: Ein WordPress-Plugin, mit dem Versicherte ihre Daten dank DSGVO befreien können
-Version: 1.4.2
+Version: 1.5.1
 Author: Phil Lehmann, AK Vorratsdatenspeicherung
 Author URI: http://www.vorratsdatenspeicherung.de/
 Contributors: philrykoff
@@ -47,6 +47,16 @@ function gesundheitsdatenbefreier_get_mail_text($params) {
 	return str_replace($from, $to, get_option('gesundheitsdatenbefreier_mail_text'));
 }
 
+function gesundheitsdatenbefreier_get_post_form($form_attributes, $content) {
+	
+	$str = '<form ' . $form_attributes . ' method="post">';
+	foreach ($_POST as $key => $value) {
+		$str .= '<input type="hidden" name="' . $key . '" value="' . esc_attr($value) . '">';
+	}
+	$str .= $content . '</form>';
+	return $str;
+}
+
 // Include CSS and script files
 
 function gesundheitsdatenbefreier_router_enqueue_scripts() {
@@ -57,8 +67,8 @@ function gesundheitsdatenbefreier_router_enqueue_scripts() {
 	wp_enqueue_script('gesundheitsdatenbefreier-script', plugin_dir_url(__FILE__) . 'assets/scripts.js', array('jquery'));	
 	wp_enqueue_style('gesundheitsdatenbefreier-style', plugin_dir_url(__FILE__) . 'assets/style.css');
 	
-	if(isset($_GET['gp_kasse'])) {
-		wp_add_inline_script('gesundheitsdatenbefreier-script', 'jQuery(document).ready(function($){ $(\'.select2.krankenkasse\').val(\'' . esc_js($_GET['gp_kasse']) . '\').trigger(\'change\'); if(\'' . esc_js($_GET['gp_kasse']) . '\' == \'other\') { $(\'.other.fields\').slideDown("slow"); } });');
+	if(isset($_POST['gp_kasse'])) {
+		wp_add_inline_script('gesundheitsdatenbefreier-script', 'jQuery(document).ready(function($){ $(\'.select2.krankenkasse\').val(\'' . esc_js($_POST['gp_kasse']) . '\').trigger(\'change\'); if(\'' . esc_js($_POST['gp_kasse']) . '\' == \'other\') { $(\'.other.fields\').slideDown("slow"); } });');
 	}
 }
 

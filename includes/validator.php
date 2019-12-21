@@ -109,26 +109,26 @@ class gesundheitsdatenbefreier_Validator {
 	}
 	
 	// Validate complete set of data
-	public static function validate($data) {
+	public static function validatePost() {
 		if(self::$errors !== null) {
 			return self::$errors;
 		}
 		
-		self::$errors = self::validateRules($data, self::$basicValidations);
-		if($data['gp_kasse'] == 'other') {
-			self::$errors = self::validateRules($data, self::$otherKKValidation, self::$errors);
+		self::$errors = self::validateRules($_POST, self::$basicValidations);
+		if($_POST['gp_kasse'] == 'other') {
+			self::$errors = self::validateRules($_POST, self::$otherKKValidation, self::$errors);
 			
-			if(self::is_not_empty($data['gp_kk_mail'])) {
-				self::$errors = self::validateRules($data, self::$otherKKMailValidation, self::$errors);
+			if(self::is_not_empty($_POST['gp_kk_mail'])) {
+				self::$errors = self::validateRules($_POST, self::$otherKKMailValidation, self::$errors);
 			} else {
-				self::$errors = self::validateRules($data, self::$otherKKAddressValidation, self::$errors);
+				self::$errors = self::validateRules($_POST, self::$otherKKAddressValidation, self::$errors);
 			}
 		}
 		return self::$errors;
 	}
 	
-	public static function isValid($data) {
-		return count(self::validate($data)) === 0;
+	public static function isValidPost() {
+		return count(self::validatePost()) === 0;
 	}
 	
 	public static function hasError($name) {

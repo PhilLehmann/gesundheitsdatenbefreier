@@ -9,25 +9,25 @@ class gesundheitsdatenbefreier_Krankenkassenliste {
 		array_push($this->data, new gesundheitsdatenbefreier_Krankenkasse($name, $plz, $ort, $strasse, $email));
 	}
 	
-	function get($requestData) {
-		if(!isset($requestData['gp_kasse'])) {
+	function getFromPost() {
+		if(!isset($_POST['gp_kasse'])) {
 			wp_die('Parameter "gp_kasse" fehlt.');
 		}
 		
-		$name = $requestData['gp_kasse'];
+		$name = $_POST['gp_kasse'];
 		foreach($this->data as $krankenkasse) {
 			if($krankenkasse->name == $name) {
 				return $krankenkasse;
 			}
 		}
 		
-		if(!isset($requestData['gp_kk_name'])) {
+		if(!isset($_POST['gp_kk_name'])) {
 			wp_die('Parameter "gp_kk_name" fehlt.');
 		}
-		if(!isset($requestData['gp_kk_mail']) && (!isset($requestData['gp_kk_plz']) || !isset($requestData['gp_kk_ort']) || !isset($requestData['gp_kk_strasse']))) {
+		if(!isset($_POST['gp_kk_mail']) && (!isset($_POST['gp_kk_plz']) || !isset($_POST['gp_kk_ort']) || !isset($_POST['gp_kk_strasse']))) {
 			wp_die('Parameter "gp_kk_mail" und eine komplette Addresse (Parameter "gp_kk_plz", "gp_kk_ort" und "gp_kk_strasse") fehlen.');
 		}
-		return new gesundheitsdatenbefreier_Krankenkasse($requestData['gp_kk_name'], $requestData['gp_kk_plz'], $requestData['gp_kk_ort'], $requestData['gp_kk_strasse'], $requestData['gp_kk_mail']);
+		return new gesundheitsdatenbefreier_Krankenkasse($_POST['gp_kk_name'], $_POST['gp_kk_plz'], $_POST['gp_kk_ort'], $_POST['gp_kk_strasse'], $_POST['gp_kk_mail']);
 	}
 	
 	function printOptions() {

@@ -19,7 +19,7 @@ function gesundheitsdatenbefreier_pdf() {
     $pdf->AddPage();
 
 	require_once __DIR__ . '/krankenkassen.php';
-	$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->get($_POST);
+	$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->getFromPost();
 	
 	if(!isset($_POST['gp_name']) || !isset($_POST['gp_strasse']) || !isset($_POST['gp_plz']) || !isset($_POST['gp_ort'])) {
 		wp_die('Einer der Parameter "gp_name", "gp_strasse", "gp_plz", oder "gp_ort" fehlt.');

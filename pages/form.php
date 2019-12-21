@@ -12,8 +12,8 @@ function gesundheitsdatenbefreier_getError($name) {
 
 function gesundheitsdatenbefreier_getValue($name) {
 	$html = '<input type="text" name="' . $name . '"';
-	if(isset($_GET[$name])) {
-		$html .= ' value="' . esc_attr($_GET[$name]) . '"';
+	if(isset($_POST[$name])) {
+		$html .= ' value="' . esc_attr($_POST[$name]) . '"';
 	}
 	$error = gesundheitsdatenbefreier_getError($name);
 	if($error) {
@@ -24,19 +24,18 @@ function gesundheitsdatenbefreier_getValue($name) {
 	return $html;
 }
 
-if(isset($_GET['gp_kasse'])) {
-	wp_add_inline_script('gesundheitsdatenbefreier-script', 'jQuery(document).ready(function($){ $(\'.select2.krankenkasse\').val(\'' . esc_js($_GET['gp_kasse']) . '\').trigger("change"); });');
+if(isset($_POST['gp_kasse'])) {
+	wp_add_inline_script('gesundheitsdatenbefreier-script', 'jQuery(document).ready(function($){ $(\'.select2.krankenkasse\').val(\'' . esc_js($_POST['gp_kasse']) . '\').trigger("change"); });');
 }
 
 ?>
 <div class="gesundheitsdatenbefreier form">
-	<form action="" method="get">
+	<form action="?gp=result" method="post">
 		<?php
-			if(isset($showResult) && !gesundheitsdatenbefreier_Validator::isValid($_GET)) {
+			if(isset($showResult) && !gesundheitsdatenbefreier_Validator::isValidPost()) {
 				echo '<div class="error">Da ist etwas schiefgelaufen.</div>';
 			}
 		?>
-		<input type="hidden" name="gp" value="result">
 		
 		Name: <?=gesundheitsdatenbefreier_getValue("gp_name")?><br/>
 		Straße: <?=gesundheitsdatenbefreier_getValue("gp_strasse")?><br/>
@@ -63,7 +62,7 @@ if(isset($_GET['gp_kasse'])) {
 			E-Mail: <?=gesundheitsdatenbefreier_getValue("gp_kk_mail")?><br/>
 		</div>
 		Versichertennummer: <?=gesundheitsdatenbefreier_getValue("gp_nummer")?><br/>
-		<input class="submit" type="submit" value="Absenden" />
+		<input class="submit" type="submit" value="Anfrage erstellen" />
 	</form>
 	<p>
 		<input class="form infos button" type="button" value="&lt; Zurück" />

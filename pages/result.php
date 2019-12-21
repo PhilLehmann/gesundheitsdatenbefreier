@@ -5,7 +5,7 @@ defined('ABSPATH') or die('');
 $showResult = true;
 
 require_once __DIR__ . '/../includes/validator.php';
-if(!gesundheitsdatenbefreier_Validator::isValid($_GET)) {
+if(!gesundheitsdatenbefreier_Validator::isValidPost()) {
 	$showResult = false;
 	require_once __DIR__ . '/form.php';
 }
@@ -19,7 +19,7 @@ if($showResult) {
 	}
 
 	require_once __DIR__ . '/../includes/krankenkassen.php';
-	$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->get($_GET);
+	$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->getFromPost();
 
 ?>
 <div class="gesundheitsdatenbefreier result">
@@ -36,7 +36,7 @@ if($showResult) {
 
 	<?php
 
-	$mailText = gesundheitsdatenbefreier_get_mail_text($_GET);
+	$mailText = gesundheitsdatenbefreier_get_mail_text($_POST);
 	echo wpautop($mailText);
 
 	?>
@@ -52,25 +52,10 @@ if($showResult) {
 	</div>
 
 	<div class="actions">
-		<input class="infos button" type="button" value="&lt; Zurück" />
 		<?php
+		echo gesundheitsdatenbefreier_get_post_form('action="?gp=form"', '<input class="infos button" type="button" value="&lt; Zurück" />');
 		if($krankenkasse->canSendLetter()) {
-		?>
-		<form target="_blank" action="/wp-json/gesundheitsdatenbefreier/pdf" method="post">
-			<input type="hidden" name="gp_name" value="<?=esc_attr($_GET['gp_name'])?>">
-			<input type="hidden" name="gp_strasse" value="<?=esc_attr($_GET['gp_strasse'])?>">
-			<input type="hidden" name="gp_plz" value="<?=esc_attr($_GET['gp_plz'])?>">
-			<input type="hidden" name="gp_ort" value="<?=esc_attr($_GET['gp_ort'])?>">
-			<input type="hidden" name="gp_kasse" value="<?=esc_attr($_GET['gp_kasse'])?>">
-			<input type="hidden" name="gp_kk_name" value="<?=esc_attr($_GET['gp_kk_name'])?>">
-			<input type="hidden" name="gp_kk_strasse" value="<?=esc_attr($_GET['gp_kk_strasse'])?>">
-			<input type="hidden" name="gp_kk_plz" value="<?=esc_attr($_GET['gp_kk_plz'])?>">
-			<input type="hidden" name="gp_kk_ort" value="<?=esc_attr($_GET['gp_kk_ort'])?>">
-			<input type="hidden" name="gp_kk_mail" value="<?=esc_attr($_GET['gp_kk_mail'])?>">		
-			<input type="hidden" name="gp_nummer" value="<?=esc_attr($_GET['gp_nummer'])?>">
-			<input class="submit-pdf button" type="submit" value="PDF öffnen" />
-		</form>
-		<?php
+			echo gesundheitsdatenbefreier_get_post_form('target="_blank" action="/wp-json/gesundheitsdatenbefreier/pdf"', '<input class="submit-pdf button" type="submit" value="PDF öffnen" />');
 		}
 		if($krankenkasse->canSendMail()) {
 		?>
