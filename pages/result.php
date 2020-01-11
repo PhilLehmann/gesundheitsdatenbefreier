@@ -63,7 +63,7 @@ if($showResult) {
 		<?php
 		}
 		?>
-		<input class="good-bye button" type="button" value="Weiter &gt;" />
+		<input class="good-bye button" type="button" value="Weitere Infos" />
 	</div>
 </div>
 
