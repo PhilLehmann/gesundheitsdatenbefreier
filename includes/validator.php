@@ -59,7 +59,7 @@ class gesundheitsdatenbefreier_Validator {
 	
 	private static function modified_luhn($number) {		
 		$firstLetterValue = ord(strtoupper(substr($number, 0, 1))) - ord('A') + 1;
-		if($firstLetterValue < 9) {
+		if($firstLetterValue <= 9) {
 			$firstLetterValue = '0' . $firstLetterValue;
 		}
 		$number = $firstLetterValue . substr($number, 1);
