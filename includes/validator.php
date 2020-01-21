@@ -66,6 +66,7 @@ class gesundheitsdatenbefreier_Validator {
 		$total = 0;
 		$digits = str_split($number);
 		foreach($digits as $index => $digit) {
+			if (!is_numeric($digit)) return false;
 			if($index == 10) {
 				break;
 			}
