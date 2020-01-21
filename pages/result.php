@@ -34,12 +34,7 @@ if($showResult) {
 		<b><?=esc_html(get_option('gesundheitsdatenbefreier_mail_subject', 'Datenschutzauskunft'))?></b>
 	</p>
 
-	<?php
-
-	$mailText = gesundheitsdatenbefreier_get_mail_text($_POST);
-	echo wpautop($mailText);
-
-	?>
+	<?=wpautop(gesundheitsdatenbefreier_get_mail_text($_POST, 'screen'))?>
 
 	<div class="mail-to">
 		<?=esc_html($krankenkasse->email)?>
@@ -48,7 +43,7 @@ if($showResult) {
 		<?=esc_html(get_option('gesundheitsdatenbefreier_mail_subject', 'Datenschutzauskunft'))?>
 	</div>
 	<div class="mail-text">
-		<?=$mailText?>
+		<?=wpautop(gesundheitsdatenbefreier_get_mail_text($_POST, 'mail'))?>
 	</div>
 
 	<div class="actions">

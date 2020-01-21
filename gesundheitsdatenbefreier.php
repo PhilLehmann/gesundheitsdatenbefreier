@@ -3,10 +3,10 @@
 == gesundheitsdatenbefreier ==
 Plugin Name: gesundheitsdatenbefreier
 Description: Ein WordPress-Plugin, mit dem Versicherte ihre Daten dank DSGVO befreien können
-Version: 1.5.2
+Version: 1.5.5
 Author: Phil Lehmann, AK Vorratsdatenspeicherung
 Author URI: http://www.vorratsdatenspeicherung.de/
-Contributors: philrykoff
+Contributors: PhilLehmann, BartS23, BSOxid
 Tested up to: 5.2.4
 Requires at least: 5.2.4
 Requires PHP: 7.1
@@ -35,16 +35,32 @@ add_shortcode('gesundheitsdatenbefreier', 'gesundheitsdatenbefreier_router');
 
 // Functions to include
 
-function gesundheitsdatenbefreier_get_mail_text($params) {
+function gesundheitsdatenbefreier_get_mail_text($params, $mediaType) {
 	if(!isset($params['gp_name']) || !isset($params['gp_strasse']) || !isset($params['gp_plz']) || !isset($params['gp_ort']) || !isset($params['gp_kasse']) || !isset($params['gp_nummer'])) {
 		wp_die('Einer der Parameter "gp_name", "gp_strasse", "gp_plz", "gp_ort", "gp_kasse", "gp_nummer" fehlt.');
 	}
 	if($params['gp_kasse'] == 'other' && !isset($params['gp_kk_name'])) {
 		wp_die('Der Parameter "gp_kk_name" fehlt.');
 	}
-	$from = array('{{name}}', '{{strasse}}', '{{plz}}', '{{ort}}', '{{kasse}}', '{{versichertennummer}}');
-	$to = array(esc_html($params['gp_name']), esc_html($params['gp_strasse']), esc_html($params['gp_plz']), esc_html($params['gp_ort']), esc_html($params['gp_kasse'] !== 'other' ? $params['gp_kasse'] : $params['gp_kk_name']), esc_html($params['gp_nummer']));
-	return str_replace($from, $to, get_option('gesundheitsdatenbefreier_mail_text'));
+	
+	$vars = [];
+	$vars['name'] = esc_html($params['gp_name']);
+	$vars['strasse'] = esc_html($params['gp_strasse']);
+	$vars['plz'] = esc_html($params['gp_plz']);
+	$vars['ort'] = esc_html($params['gp_ort']);
+	if($params['gp_kasse'] == 'other') {
+		$vars['kasse'] = esc_html($params['gp_kk_name']);
+	} else {
+		$vars['kasse'] = esc_html($params['gp_kasse']);
+	}
+	$vars['versichertennummer'] = esc_html($params['gp_nummer']);
+	
+	$vars['mediaType'] = $mediaType;
+	
+	extract($vars);
+	ob_start();
+	echo eval('?>' . get_option('gesundheitsdatenbefreier_mail_text'));
+	return ob_get_clean();
 }
 
 function gesundheitsdatenbefreier_get_post_form($form_attributes, $content) {
@@ -186,14 +202,17 @@ function gesundheitsdatenbefreier_mail_text_render() {
 ?>
 
 <p>
-	Verfügbare Platzhalter: 
+	Dieses Textfeld unterstützt PHP, zum Beispiel <code>&lt;?=$name?&gt;</code> und <code>&lt;?php if($mediaType === "pdf") { echo "Wird nur in der PDF ausgegeben."; } ?&gt;</code>.
+	
+	Verfügbare Variablen: 
 	<ul>
-		<li><code>{{name}}</code> für den kompletten Namen des Versicherten</li>
-		<li><code>{{strasse}}</code> für die Straße des Versicherten</li>
-		<li><code>{{plz}}</code> für die Postleitzahl des Versicherten</li>
-		<li><code>{{ort}}</code> für den Ort des Versicherten</li>
-		<li><code>{{kasse}}</code> für die Krankenkasse des Versicherten</li>
-		<li><code>{{versichertennummer}}</code> für die Versichertennummer</li>
+		<li><code>$name</code> für den kompletten Namen des Versicherten</li>
+		<li><code>$strasse</code> für die Straße des Versicherten</li>
+		<li><code>$plz</code> für die Postleitzahl des Versicherten</li>
+		<li><code>$ort</code> für den Ort des Versicherten</li>
+		<li><code>$kasse</code> für die Krankenkasse des Versicherten</li>
+		<li><code>$versichertennummer</code> für die Versichertennummer</li>
+		<li><code>$mediaType</code> für konditionale Formatierungen (mögliche Werte: 'screen', 'pdf' und 'mail')</li>
 	</ul>
 </p>
 

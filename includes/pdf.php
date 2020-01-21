@@ -53,7 +53,7 @@ function gesundheitsdatenbefreier_pdf() {
 	<br/>
 TXT;
 	
-	$html .= wpautop(gesundheitsdatenbefreier_get_mail_text($_POST));
+	$html .= wpautop(gesundheitsdatenbefreier_get_mail_text($_POST, 'pdf'));
 
     $pdf->writeHTML($html, true, false, true, false, '');
     
