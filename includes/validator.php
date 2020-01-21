@@ -42,7 +42,7 @@ class gesundheitsdatenbefreier_Validator {
 	// validation functions
 	private static function is_not_empty($value) {
 		$trimmedText = trim($value);
-		return !empty($trimmedText);
+		return $trimmedText !== '';
 	}
 	
 	private static function is_plz($value) {
@@ -66,7 +66,9 @@ class gesundheitsdatenbefreier_Validator {
 		$total = 0;
 		$digits = str_split($number);
 		foreach($digits as $index => $digit) {
-			if (!is_numeric($digit)) return false;
+			if (!is_numeric($digit)) {
+				return false;
+			}
 			if($index == 10) {
 				break;
 			}
