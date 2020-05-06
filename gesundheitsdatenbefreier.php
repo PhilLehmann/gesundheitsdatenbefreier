@@ -3,7 +3,7 @@
 == gesundheitsdatenbefreier ==
 Plugin Name: gesundheitsdatenbefreier
 Description: Ein WordPress-Plugin, mit dem Versicherte ihre Daten dank DSGVO befreien können
-Version: 1.5.5
+Version: 1.5.14
 Author: Phil Lehmann, AK Vorratsdatenspeicherung
 Author URI: http://www.vorratsdatenspeicherung.de/
 Contributors: PhilLehmann, BartS23, BSOxid

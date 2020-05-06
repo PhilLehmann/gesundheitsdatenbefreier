@@ -19,6 +19,7 @@ if($showResult) {
 	}
 
 	require_once __DIR__ . '/../includes/krankenkassen.php';
+	$gesundheitsdatenbefreier_krankenkassen = gesundheitsdatenbefreier_Krankenkassenliste::getInstance();
 	$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->getFromPost();
 
 ?>

@@ -49,6 +49,7 @@ if(isset($_POST['gp_kasse'])) {
 			<option></option>
 			<?php
 				require_once __DIR__ . '/../includes/krankenkassen.php';
+				$gesundheitsdatenbefreier_krankenkassen = gesundheitsdatenbefreier_Krankenkassenliste::getInstance();
 				$gesundheitsdatenbefreier_krankenkassen->printOptions();
 			?>
 			<option value="other">Andere...</option>

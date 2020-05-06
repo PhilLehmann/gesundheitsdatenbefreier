@@ -19,6 +19,7 @@ function gesundheitsdatenbefreier_pdf() {
     $pdf->AddPage();
 
 	require_once __DIR__ . '/krankenkassen.php';
+	$gesundheitsdatenbefreier_krankenkassen = gesundheitsdatenbefreier_Krankenkassenliste::getInstance();
 	$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->getFromPost();
 	
 	if(!isset($_POST['gp_name']) || !isset($_POST['gp_strasse']) || !isset($_POST['gp_plz']) || !isset($_POST['gp_ort'])) {

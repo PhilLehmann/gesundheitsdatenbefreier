@@ -18,7 +18,7 @@ class gesundheitsdatenbefreier_Validator {
 		'gp_strasse' => array('not_empty'),
 		'gp_plz' => array('not_empty', 'plz'),
 		'gp_ort' => array('not_empty'),
-		'gp_kasse' => array('not_empty'),
+		'gp_kasse' => array('not_empty', 'krankenkasse'),
 		'gp_nummer' => array('not_empty', 'versichertennummer')
 	);
 	
@@ -53,8 +53,35 @@ class gesundheitsdatenbefreier_Validator {
 		return (bool) filter_var($value, FILTER_VALIDATE_EMAIL);
 	}
 	
-	private static function is_versichertennummer($value) {
-		return is_string($value) && strlen($value) === 10 && self::modified_luhn($value);
+	private static function is_krankenkasse($value) {
+		// Can contain any value
+		return true;
+	}
+	
+	private static function is_versichertennummer($value, $data) {
+		
+		$krankenkassenName = null;
+		foreach(self::$basicValidations as $field => $checks) {
+			if(in_array('krankenkasse', $checks) && isset($data[$field])) {
+				$krankenkassenName = $data[$field];
+			}
+		}
+		
+		$isPrivate = false;
+		if($krankenkassenName !== null) {
+			require_once __DIR__ . '/../includes/krankenkassen.php';
+			$gesundheitsdatenbefreier_krankenkassen = gesundheitsdatenbefreier_Krankenkassenliste::getInstance();
+			$krankenkasse = $gesundheitsdatenbefreier_krankenkassen->get($krankenkassenName);
+			if($krankenkasse !== null) {
+				$isPrivate = $krankenkasse->isPrivate;
+			}
+		}
+		
+		if($isPrivate) {
+			return is_string($value);
+		} else {
+			return is_string($value) && strlen($value) === 10 && self::modified_luhn($value);			
+		}
 	}
 	
 	private static function modified_luhn($number) {		
@@ -98,7 +125,7 @@ class gesundheitsdatenbefreier_Validator {
 			foreach($checks as $check) {
 				$checkFunction = 'is_' . $check;
 				if(isset($data[$field])) {
-					if(!self::$checkFunction($data[$field])) {
+					if(!self::$checkFunction($data[$field], $data)) {
 						$errors[$field] = self::$messages[$check];
 						break;
 					}
