@@ -166,31 +166,31 @@ $gesundheitsdatenbefreier_krankenkassen->add('Heimat Krankenkasse', '33602', 'Bi
 $gesundheitsdatenbefreier_krankenkassen->add('IKK gesund plus', '39124', 'Magdeburg', 'Umfassungsstraße 85', 'info@ikk-gesundplus.de', false);
 $gesundheitsdatenbefreier_krankenkassen->add('IKK Nord', '19061', 'Schwerin', 'Ellerried 1', 'mail@ikk-nord.de', false);
 $gesundheitsdatenbefreier_krankenkassen->add('IKK Südwest', '66111', 'Saarbrücken', 'Berliner Promenade 1', 'info@ikk-suedwest.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Koenig & Bauer BKK', '97080', 'Würzburg', 'Friedrich-Koenig-Str. 4', 'datenschutzbeauftragter@koenig-bauer-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Krones BKK', '93073', 'Neutraubling', 'Bayerwaldstr. 2L', 'bkk.info@krones.com', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Merck BKK', '64293', 'Darmstadt', 'Frankfurter Straße 129', 'bkk@merckgroup.com', false);
+$gesundheitsdatenbefreier_krankenkassen->add('mhplus Betriebskrankenkasse', '90411', 'Nürnberg', 'Nordostpark 14', 'info@mhplus.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('pronova BKK', '67063', 'Ludwigshafen', 'Brunckstr. 47', 'service@pronovabkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('R+V Betriebskrankenkasse', '65205', 'Wiesbaden', 'Kreuzberger Ring 21', 'info@ruv-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Salus BKK', '63263', 'Neu-Isenburg', 'Siemensstraße 5a', 'service@salus-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('SECURVITA BKK', '20099', 'Hamburg', 'Lübeckertordamm 1-3', 'mail@securvita-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('SIEMAG BKK', '57271', 'Hilchenbach', 'Hillnhütter Str. 89', 'info@siemagbkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('SKD BKK', '97421', 'Schweinfurt', 'Schultesstrasse 19a', 'service@skd-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Südzucker BKK', '68167', 'Mannheim', 'Joseph-Meyer-Str. 13-15', 'info@suedzucker-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('TUI BKK', '30625', 'Hannover', 'Karl-Wiechert-Allee 23', 'service@tui-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('VIACTIV Krankenkasse', '44789', 'Bochum', 'Universitätsstraße 43', 'service@viactiv.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Wieland BKK', '89079', 'Ulm', 'Graf-Arco-Str. 36', 'zentrale@wieland-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('WMF Betriebskrankenkasse', '73312', 'Geislingen', 'Eberhardstraße', 'service@wmf-bkk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('BKK Voralb HELLER*INDEX*LEUZE', '72622', 'Nürtingen', 'Neuffener Straße 54', 'info@bkk-voralb.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Betriebskrankenkasse PricewaterhouseCoopers', '34212', 'Melsungen', 'Burgstr. 1-3', 'info@bkk-pwc.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Daimler BKK', '28178', 'Bremen', '', 'datenschutz@daimler-bkk.com', false);
+$gesundheitsdatenbefreier_krankenkassen->add('IKK Brandenburg und Berlin', '14480', 'Potsdam', 'Ziolkowskistr. 6', 'service@ikkbb.de', false);
 
 // Gesetzliche Krankenkassen - keine E-Mail-Adresse gefunden
 
-$gesundheitsdatenbefreier_krankenkassen->add('Koenig & Bauer BKK', '97080', 'Würzburg', 'Friedrich-Koenig-Str. 4', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Krones BKK', '93073', 'Neutraubling', 'Bayerwaldstr. 2L', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Merck BKK', '64293', 'Darmstadt', 'Frankfurter Straße 130', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('mhplus Betriebskrankenkasse', '90411', 'Nürnberg', 'Nordostpark 14', '', false);
 $gesundheitsdatenbefreier_krankenkassen->add('Novitas BKK', '47059', 'Duisburg', 'Schifferstraße 92-102', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('pronova BKK', '67063', 'Ludwigshafen', 'Brunckstr. 47', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('R+V Betriebskrankenkasse', '65205', 'Wiesbaden', 'Kreuzberger Ring 21', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Salus BKK', '81476', 'München', 'Züricher Straße 27', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('SECURVITA BKK', '20099', 'Hamburg', 'Lübeckertordamm 1-3', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('SIEMAG BKK', '57271', 'Hilchenbach', 'Hillnhütter Str. 89', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('SKD BKK', '97421', 'Schweinfurt', 'Schultesstrasse 19a', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Sozialversicherung für Landwirtschaft', 'Forsten und Gartenbau (SVLFG, false)', '34131', 'Kassel', 'Weißensteinstraße 70-72', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Südzucker BKK', '68167', 'Mannheim', 'Joseph-Meyer-Str. 13-15', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('TUI BKK', '30625', 'Hannover', 'Karl-Wiechert-Allee 23', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('VIACTIV Krankenkasse', '44789', 'Bochum', 'Universitätsstraße 43', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Wieland BKK', '89079', 'Ulm', 'Graf-Arco-Str. 36', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('WMF Betriebskrankenkasse', '73312', 'Geislingen', 'Eberhardstraße', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('BKK Voralb HELLER*INDEX*LEUZE', '72622', 'Nürtingen', 'Neuffener Straße 54', '', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Sozialversicherung für Landwirtschaft, Forsten und Gartenbau (SVLFG)', '34131', 'Kassel', 'Weißensteinstraße 70-72', '', false);
 $gesundheitsdatenbefreier_krankenkassen->add('actimonda BKK', '52068', 'Aachen', 'Hüttenstraße 1', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Betriebskrankenkasse PricewaterhouseCoopers', '34212', 'Melsungen', 'Burgstr. 1-3', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Daimler Betriebskrankenkasse', '70327', 'Stuttgart', 'Mercedesstraße  139', '', false);
-$gesundheitsdatenbefreier_krankenkassen->add('IKK Brandenburg und Berlin', '14480', 'Potsdam', 'Ziolkowskistr. 6', '', false);
 
 // Private Krankenversicherungen
 
