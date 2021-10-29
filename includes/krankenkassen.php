@@ -202,7 +202,6 @@ $gesundheitsdatenbefreier_krankenkassen->add('Augenoptiker Ausgleichskasse VVaG 
 $gesundheitsdatenbefreier_krankenkassen->add('AXA Krankenversicherung Aktiengesellschaft', '51067', 'Köln', 'Colonia Allee 10-20', 'info@axa.de', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Barmenia Krankenversicherung AG', '42119', 'Wuppertal', 'Barmenia-Allee 1', '', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Bayerische Beamtenkrankenkasse Aktiengesellschaft', '80538', 'München', 'Maximilianstraße 53', '', true);
-$gesundheitsdatenbefreier_krankenkassen->add('Central Krankenversicherung Aktiengesellschaft', '50670', 'Köln', 'Hansaring 40 - 50', 'info@central.de', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Concordia Krankenversicherungs-Aktiengesellschaft', '30625', 'Hannover', 'Karl-Wiechert-Allee 55', '', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Continentale Krankenversicherung a.G.', '44139', 'Dortmund', 'Ruhrallee 92', '', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Debeka Krankenversicherungsverein auf Gegenseitigkeit Sitz Koblenz am Rhein', '56073', 'Koblenz am Rhein', 'Ferdinand-Sauerbruch-Straße 18', 'kundenservice@debeka.de', true);
@@ -211,6 +210,7 @@ $gesundheitsdatenbefreier_krankenkassen->add('DKV Deutsche Krankenversicherung A
 $gesundheitsdatenbefreier_krankenkassen->add('ENVIVAS Krankenversicherung Aktiengesellschaft', '50670', 'Köln', 'Gereonswall 68', '', true);
 $gesundheitsdatenbefreier_krankenkassen->add('ERGO Krankenversicherung AG', '90762', 'Fürth', 'Bay', 'Nürnberger Straße 91-95', 'info@ergodirekt.de', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Freie Arzt- und Medizinkasse der Angehörigen der Berufsfeuerwehr und der Polizei VVaG', '60327', 'Frankfurt am Main', 'Hansaallee 154', '', true);
+$gesundheitsdatenbefreier_krankenkassen->add('Generali Deutschland Krankenversicherung AG', '81737', 'München', 'Adenauerring 7', 'gesundheit@generali.com', true);
 $gesundheitsdatenbefreier_krankenkassen->add('Gothaer Krankenversicherung Aktiengesellschaft', '50969', 'Köln', 'Arnoldiplatz 1', '', true);
 $gesundheitsdatenbefreier_krankenkassen->add('HALLESCHE Krankenversicherung auf Gegenseitigkeit', '70178', 'Stuttgart', 'Reinsburgstraße 10', '', true);
 $gesundheitsdatenbefreier_krankenkassen->add('HanseMerkur Krankenversicherung AG', '20354', 'Hamburg', 'Siegfried-Wedells-Platz 1', 'info@hansemerkur.de', true);
