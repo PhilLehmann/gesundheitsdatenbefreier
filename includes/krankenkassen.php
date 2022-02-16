@@ -85,7 +85,7 @@ $gesundheitsdatenbefreier_krankenkassen = new gesundheitsdatenbefreier_Krankenka
 
 $gesundheitsdatenbefreier_krankenkassen->add('BARMER', '10969', 'Berlin', 'Axel-Springer-Straße 44', 'service@barmer.de', false);
 $gesundheitsdatenbefreier_krankenkassen->add('DAK Gesundheit', '20097', 'Hamburg', 'Nagelsweg 27-31', 'service@dak.de', false);
-$gesundheitsdatenbefreier_krankenkassen->add('Techniker Krankenkasse (TK, false)', '22305', 'Hamburg', 'Bramfelder Straße 140', 'service@tk.de', false);
+$gesundheitsdatenbefreier_krankenkassen->add('Techniker Krankenkasse (TK)', '22305', 'Hamburg', 'Bramfelder Straße 140', 'service@tk.de', false);
 $gesundheitsdatenbefreier_krankenkassen->add('HEK - Hanseatische Krankenkasse', '22041', 'Hamburg', 'Wandsbeker Zollstraße 86-90', 'kontakt@hek.de', false);
 $gesundheitsdatenbefreier_krankenkassen->add('hkk Krankenkasse', '28195', 'Bremen', 'Martinistraße 26', 'info@hkk.de', false);
 $gesundheitsdatenbefreier_krankenkassen->add('KKH Kaufmännische Krankenkasse', '30625', 'Hannover', 'Karl-Wiechert-Allee 61', 'service@kkh.de', false);
